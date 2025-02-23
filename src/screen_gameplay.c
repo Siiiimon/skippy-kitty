@@ -26,17 +26,16 @@
 #include "stdlib.h"
 #include "raylib.h"
 #include "screens.h"
+#include "surface/surface.h"
 
 //----------------------------------------------------------------------------------
 // Module Variables Definition (local)
 //----------------------------------------------------------------------------------
 static int framesCounter = 0;
 static int finishScreen = 0;
-int noiseWidth = 0;
-int noiseHeight = 250;
-int noiseY = 0;
 Image perlinImage;
 Texture2D perlinTex;
+struct Surface* surface;
 
 //----------------------------------------------------------------------------------
 // Gameplay Screen Functions Definition
@@ -47,18 +46,14 @@ void InitGameplayScreen(void)
 {
     framesCounter = 0;
     finishScreen = 0;
-    noiseWidth = GetScreenWidth();
-    noiseY = GetScreenHeight() - noiseHeight;
-    perlinImage = GenImagePerlinNoise(noiseWidth, noiseHeight, 0, 0, 4.0f);
-    perlinTex = LoadTextureFromImage(perlinImage);
+    surface = InitSurface(0, GetScreenHeight() - 250, GetScreenWidth(), 250, 4.0f);
 }
 
 // Gameplay Screen Update logic
 void UpdateGameplayScreen(void)
 {
     framesCounter++;
-    perlinImage = GenImagePerlinNoise(noiseWidth, noiseHeight, framesCounter, 0, 4.0f);
-    UpdateTexture(perlinTex, perlinImage.data);
+    UpdateSurface(surface, framesCounter);
 
     // Press enter or tap to change to ENDING screen
     // if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
@@ -71,14 +66,13 @@ void UpdateGameplayScreen(void)
 // Gameplay Screen Draw logic
 void DrawGameplayScreen(void)
 {
-    DrawTexture(perlinTex, 0, noiseY, WHITE);
+    DrawSurface(surface, WHITE);
 }
 
 // Gameplay Screen Unload logic
 void UnloadGameplayScreen(void)
 {
-    UnloadTexture(perlinTex);
-    UnloadImage(perlinImage);
+    UnloadSurface(surface);
 }
 
 // Gameplay Screen should finish?
