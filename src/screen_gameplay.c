@@ -26,7 +26,7 @@
 #include "stdlib.h"
 #include "raylib.h"
 #include "screens.h"
-#include "surface/surface.h"
+#include "ground/ground.h"
 
 //----------------------------------------------------------------------------------
 // Module Variables Definition (local)
@@ -35,7 +35,7 @@ static int framesCounter = 0;
 static int finishScreen = 0;
 Image perlinImage;
 Texture2D perlinTex;
-struct Surface* surface;
+struct Ground* ground;
 
 //----------------------------------------------------------------------------------
 // Gameplay Screen Functions Definition
@@ -46,14 +46,14 @@ void InitGameplayScreen(void)
 {
     framesCounter = 0;
     finishScreen = 0;
-    surface = InitSurface(0, GetScreenHeight() - 250, GetScreenWidth(), 250, 4.0f);
+    ground = NewGround(0, GetScreenHeight() - 250, GetScreenWidth(), 250);
 }
 
 // Gameplay Screen Update logic
 void UpdateGameplayScreen(void)
 {
     framesCounter++;
-    UpdateSurface(surface, framesCounter);
+    UpdateGround(ground, framesCounter*4);
 
     // Press enter or tap to change to ENDING screen
     // if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
@@ -66,13 +66,13 @@ void UpdateGameplayScreen(void)
 // Gameplay Screen Draw logic
 void DrawGameplayScreen(void)
 {
-    DrawSurface(surface, WHITE);
+    DrawGround(ground, WHITE);
 }
 
 // Gameplay Screen Unload logic
 void UnloadGameplayScreen(void)
 {
-    UnloadSurface(surface);
+    UnloadGround(ground);
 }
 
 // Gameplay Screen should finish?
