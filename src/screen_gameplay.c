@@ -23,11 +23,11 @@
 *
 **********************************************************************************************/
 
+#include "director.h"
 #include "stdlib.h"
 #include "raylib.h"
 #include "screens.h"
 #include "ground/ground.h"
-#include "world/enemies/puddle.h"
 #include "world/player.h"
 #include "util.h"
 
@@ -41,7 +41,7 @@ Image perlinImage;
 Texture2D perlinTex;
 struct Ground* ground;
 struct Player* player;
-struct Puddle* puddle;
+struct Director* director;
 
 //----------------------------------------------------------------------------------
 // Gameplay Screen Functions Definition
@@ -54,7 +54,7 @@ void InitGameplayScreen(void)
     finishScreen = 0;
     ground = NewGround(0, GetScreenHeight() - 150, GetScreenWidth(), 150);
     player = NewPlayer(CLITERAL(Vector2){120, ground->rect.y});
-    puddle = NewPuddle(CLITERAL(Vector2){370, ground->rect.y});
+    director = NewDirector(15);
 }
 
 // Gameplay Screen Update logic
@@ -65,7 +65,7 @@ void UpdateGameplayScreen(void)
     debug_lines = 0;
     UpdateGround(ground, framesCounter*4);
     UpdatePlayer(player, ground->rect.y);
-    UpdatePuddle(puddle, scroll);
+    UpdateDirector(director, ground->rect.y, scroll);
 
     // Press enter or tap to change to ENDING screen
     // if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
@@ -81,7 +81,7 @@ void DrawGameplayScreen(void)
     DebugText(TextFormat("FPS: %d", GetFPS()));
     DrawGround(ground, WHITE);
     DrawPlayer(player);
-    DrawPuddle(puddle);
+    DrawDirector(director);
 }
 
 // Gameplay Screen Unload logic
@@ -89,7 +89,7 @@ void UnloadGameplayScreen(void)
 {
     UnloadGround(ground);
     FreePlayer(player);
-    FreePuddle(puddle);
+    FreeDirector(director);
 }
 
 // Gameplay Screen should finish?
