@@ -27,32 +27,32 @@ struct Ground* NewGround(int x, int y, int width, int height) {
 }
 
 void UpdateGround(struct Ground* g, int offset) {
-  UpdateSediment(g->dark, offset);
-  UpdateSediment(g->light, offset);
-  UpdateSediment(g->pebbles, offset);
+  // UpdateSediment(g->dark, offset);
+  // UpdateSediment(g->light, offset);
+  // UpdateSediment(g->pebbles, offset);
 
   g->base = GenImageColor(g->rect.width, g->rect.height, g->color);
-  ImageDraw(
-            &g->base,
-            g->dark->img,
-            CLITERAL(Rectangle){0, 0, g->base.width, g->base.height},
-            CLITERAL(Rectangle){0, 0, g->base.width, g->base.height},
-            WHITE
-  );
-  ImageDraw(
-            &g->base,
-            g->light->img,
-            CLITERAL(Rectangle){0, 0, g->base.width, g->base.height},
-            CLITERAL(Rectangle){0, 0, g->base.width, g->base.height},
-            WHITE
-  );
-  ImageDraw(
-            &g->base,
-            g->pebbles->img,
-            CLITERAL(Rectangle){0, 0, g->base.width, g->base.height},
-            CLITERAL(Rectangle){0, 0, g->base.width, g->base.height},
-            WHITE
-  );
+  // ImageDraw(
+  //           &g->base,
+  //           g->dark->img,
+  //           CLITERAL(Rectangle){0, 0, g->base.width, g->base.height},
+  //           CLITERAL(Rectangle){0, 0, g->base.width, g->base.height},
+  //           WHITE
+  // );
+  // ImageDraw(
+  //           &g->base,
+  //           g->light->img,
+  //           CLITERAL(Rectangle){0, 0, g->base.width, g->base.height},
+  //           CLITERAL(Rectangle){0, 0, g->base.width, g->base.height},
+  //           WHITE
+  // );
+  // ImageDraw(
+  //           &g->base,
+  //           g->pebbles->img,
+  //           CLITERAL(Rectangle){0, 0, g->base.width, g->base.height},
+  //           CLITERAL(Rectangle){0, 0, g->base.width, g->base.height},
+  //           WHITE
+  // );
   UpdateTexture(g->tex, g->base.data);
 }
 

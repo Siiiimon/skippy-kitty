@@ -28,6 +28,7 @@
 #include "screens.h"
 #include "ground/ground.h"
 #include "player/player.h"
+#include "util.h"
 
 //----------------------------------------------------------------------------------
 // Module Variables Definition (local)
@@ -56,8 +57,9 @@ void InitGameplayScreen(void)
 void UpdateGameplayScreen(void)
 {
     framesCounter++;
+    debug_lines = 0;
     UpdateGround(ground, framesCounter*4);
-    UpdatePlayer(player);
+    UpdatePlayer(player, ground->rect.y);
 
     // Press enter or tap to change to ENDING screen
     // if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
@@ -70,6 +72,7 @@ void UpdateGameplayScreen(void)
 // Gameplay Screen Draw logic
 void DrawGameplayScreen(void)
 {
+    DebugText(TextFormat("FPS: %d", GetFPS()));
     DrawGround(ground, WHITE);
     DrawPlayer(player);
 }
