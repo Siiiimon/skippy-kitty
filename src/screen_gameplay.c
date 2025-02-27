@@ -28,6 +28,7 @@
 #include "raylib.h"
 #include "screens.h"
 #include "ground/ground.h"
+#include "world/enemies/puddle.h"
 #include "world/player.h"
 #include "util.h"
 
@@ -66,6 +67,15 @@ void UpdateGameplayScreen(void)
     UpdateGround(ground, framesCounter*4);
     UpdatePlayer(player, ground->rect.y);
     UpdateDirector(director, ground->rect.y, scroll);
+
+    for (size_t i = 0; i < director->puddle_amount; i++) {
+        if (IsPuddleKillingPlayer(director->puddles[i], player->dimensions) && player->jump_state == JUMP_STATE_GROUNDED) {
+            TraceLog(LOG_INFO, "killed player");
+            #ifndef DEBUG
+                finishScreen = 1;
+            #endif
+        }
+    }
 
     // Press enter or tap to change to ENDING screen
     // if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))

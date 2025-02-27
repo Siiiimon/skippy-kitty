@@ -37,11 +37,12 @@ void UpdatePlayer(struct Player* player, unsigned int ground_level) {
     player->velocity = 0;
     player->jump_state = JUMP_STATE_GROUNDED;
   }
-      
+
   return;
 }
 
 void DrawPlayer(struct Player* player) {
+    DrawCircle(player->dimensions->x, player->dimensions->y, 10, GREEN);
   DrawRectangleLinesEx(*player->dimensions, 2.0f, CLITERAL(Color){0, 255, 0, 255});
   DebugText(TextFormat("acceleration: %f", player->acceleration));
   DebugText(TextFormat("velocity: %f", player->velocity));
