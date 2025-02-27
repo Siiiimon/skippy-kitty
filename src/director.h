@@ -21,6 +21,7 @@ struct Director {
 };
 
 struct Director* NewDirector(int budget);
+void SpawnEnemies(struct Director* director, float ground_level);
 void UpdateDirector(struct Director* director, float ground_level, float scroll);
 void DrawDirector(struct Director* director);
 void FreeDirector(struct Director* director);
