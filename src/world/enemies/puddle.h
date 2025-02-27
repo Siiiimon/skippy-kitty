@@ -14,6 +14,7 @@ struct Puddle {
 struct Puddle* NewPuddle(Vector2 position);
 void UpdatePuddle(struct Puddle* puddle, float scroll);
 void DrawPuddle(struct Puddle* puddle);
+int ShouldFreePuddle(struct Puddle* puddle);
 void FreePuddle(struct Puddle* puddle);
 
 #endif /* PUDDLE_H */

@@ -21,6 +21,10 @@ void DrawPuddle(struct Puddle* puddle) {
   DrawRectangleLinesEx(*puddle->dimensions, 2.0f, RED);
 }
 
+int ShouldFreePuddle(struct Puddle* puddle) {
+    return puddle->dimensions->x < -puddle->dimensions->width;
+}
+
 void FreePuddle(struct Puddle* puddle) {
   free(puddle->dimensions);
   free(puddle);

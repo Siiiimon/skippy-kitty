@@ -41,9 +41,9 @@ void UpdateDirector(struct Director *director, float ground_level,
   for (size_t i = 0; i < director->puddle_amount; i++) {
     UpdatePuddle(director->puddles[i], scroll);
     // TODO this should be a 'shouldDespawn' function or something
-    if (director->puddles[i]->dimensions->x <
-        -director->puddles[i]->dimensions->width) {
+    if (ShouldFreePuddle(director->puddles[i])) {
       FreePuddle(director->puddles[i]);
+      TraceLog(LOG_INFO, "UpdateDirector: Freed Puddle %d", i);
 
       if (i < director->puddle_amount - 1) {
         director->puddles[i] = director->puddles[director->puddle_amount - 1];
